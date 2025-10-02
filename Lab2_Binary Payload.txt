@@ -1,0 +1,19 @@
+//Binary Payload
+void parseBinaryPayload(int payload){
+  int status = (payload >> 3) & 0x1;
+  int value = payload & 0x7;
+  Serial.println("==Parse 4 Bit Binary Payload==");
+  Serial.print("Payload (BIN): "); Serial.println(payload, BIN);
+  Serial.print("Status: "); Serial.println(status ? "OK" : "Not OK");
+  Serial.print("Value (DEC): "); Serial.println(value);
+  Serial.print("Max value (3 bits): "); Serial.println(7);
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  parseBinaryPayload(10);
+  delay(3000);
+}

@@ -1,0 +1,17 @@
+//Format Demo
+void formatDemo(){
+  int v = 0x2D; //0x prefix to indicate hexadec
+  Serial.println("==Number Formats==");
+  Serial.print("DEC: "); Serial.println(v, DEC);
+  Serial.print("BIN: "); Serial.println(v, BIN);
+  Serial.print("HEX: "); Serial.println(v, HEX);
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  formatDemo();
+  delay(3000);
+}

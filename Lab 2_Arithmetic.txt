@@ -1,0 +1,29 @@
+//Arithmetic
+void arithmeticDemo(){
+  int a = 17, b = 5;
+  int sum = a + b;
+  int diff = a - b;
+  int prod = a * b;
+  int quot = a / b;
+  int rem = a % b;
+  
+  Serial.println("==Integer Arithmetic==");
+  Serial.print("a + b= ");Serial.println(sum);
+  Serial.print("a - b= ");Serial.println(diff);
+  Serial.print("a * b= ");Serial.println(prod);
+  Serial.print("a / b= ");Serial.println(quot);
+  Serial.print("a % b= ");Serial.println(rem);
+  
+  float x = 17.0, y = 5.0;
+  Serial.println("\n==Float Arithmetic==");
+  Serial.print("x / y= ");Serial.println(x / y, 4); //Set to 4 places
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  arithmeticDemo();
+  delay(3000);
+}

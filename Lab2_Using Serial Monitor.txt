@@ -1,0 +1,17 @@
+//Using Serial Monitor
+//2. Init Variable with My Name with value 300
+//3. Float Number
+//2. float affan = 11.5;
+void setup(){
+  Serial.begin(115200);
+  While(!Serial){;}
+  Serial.println("Practical 02: Serial is Ready!");
+}
+
+void loop(){
+  //1. Print Own Name, Set Delay 3000
+  //2. Print Variable with My Name
+  //2. Serial.println(affan);
+  Serial.println("Hello, IoT!");
+  delay(1000);
+}

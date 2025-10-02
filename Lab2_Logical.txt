@@ -1,0 +1,24 @@
+//Logical Demo
+void logicalDemo(){
+  bool tempHigh = true;
+  bool batteryLow = false;
+  
+  Serial.println("==Logical Operations==");
+  Serial.print("tempHigh && bateryLow = ");
+  Serial.println(tempHigh && batteryLow);
+  
+  Serial.print("tempHigh || bateryLow = ");
+  Serial.println(tempHigh || batteryLow);
+  
+  Serial.print("!tempHigh = ");
+  Serial.println(!tempHigh);
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  logicalDemo();
+  delay(3000);
+}
