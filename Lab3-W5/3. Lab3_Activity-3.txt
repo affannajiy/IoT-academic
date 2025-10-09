@@ -1,0 +1,15 @@
+//UNO (simple non-blocking)
+#include <LowPower.h>
+
+void setup()
+{
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int v = analogRead(A0);
+  Serial.print("A0 = ");
+  Serial.println(v);
+  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_ON); //sleep 8 seconds
+}

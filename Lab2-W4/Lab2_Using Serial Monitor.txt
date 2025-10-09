@@ -4,7 +4,7 @@
 //2. float affan = 11.5;
 void setup(){
   Serial.begin(115200);
-  While(!Serial){;}
+  while(!Serial){;}
   Serial.println("Practical 02: Serial is Ready!");
 }
 

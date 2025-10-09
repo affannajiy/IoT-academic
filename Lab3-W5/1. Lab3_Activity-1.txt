@@ -1,0 +1,21 @@
+void setup()
+{
+  pinMode(13, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  //Blink (Block)
+  digitalWrite(13, HIGH);
+  delay(1000); 
+  digitalWrite(13, LOW);
+  delay(1000);
+  
+  //Read sensor (Also block)
+  int v = analogRead(A0);
+  Serial.print("A0 = ");
+  Serial.println(v);
+  
+  delay(2000); //everything pause
+}

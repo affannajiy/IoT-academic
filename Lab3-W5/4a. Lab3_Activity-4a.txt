@@ -1,0 +1,30 @@
+//ESP32 simple: blink + A0 read
+
+const int LED = 13;
+unsigned long tLED = 0, tA0 = 0;
+const unsigned long LED_MS = 1000, A0_MS = 2000;
+bool on = false;
+
+void setup()
+{
+  pinMode(LED, OUTPUT);
+  Serial.begin(1000);
+}
+
+void loop()
+{
+  unsigned long now = millis();
+  
+  if (now - tLED >= LED_MS){
+    tLED = now;
+    on = !on;
+    digitalWrite(LED, on);
+  }
+  
+  if (now - tA0 >= A0_MS){
+    tA0 = now;
+    int v = analogRead(34); //use GPIO 34 on many ESP32 boards (input)
+    Serial.print("A34 = ");
+    Serial.println(v);
+  }
+}

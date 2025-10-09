@@ -1,0 +1,33 @@
+//UNO (simple non-blocking)
+const int LED = 13;
+unsigned long tLED = 0, tA0 = 0;
+const unsigned long LED_MS = 1000; //1s
+const unsigned long A0_MS = 2000; //2s
+bool ledOn = false;
+
+void setup()
+{
+  pinMode(13, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  unsigned long now = millis();
+  
+  //LED task
+  if (now - tLED >= LED_MS){
+    tLED = now;
+    ledOn = !ledOn;
+    digitalWrite(LED, ledOn);
+  }
+  
+  //Sensor task
+  if (now - tA0 >= A0_MS){
+    tA0 = now;
+    int v = analogRead(A0);
+    Serial.print("A0 = ");
+    Serial.println(v);
+  } 
+  //no delay - responsive
+}
