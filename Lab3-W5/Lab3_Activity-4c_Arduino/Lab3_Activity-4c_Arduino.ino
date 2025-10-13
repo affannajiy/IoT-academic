@@ -1,0 +1,11 @@
+#include "esp_sleep.h"
+
+void setup(){
+  Serial.begin(115200);
+  Serial.println("Do quick work, then deep sleep 10s");
+  esp_sleep_enable_timer_wakeup(10ULL * 1000000ULL);
+  Serial.flush();
+  esp_deep_sleep_start();
+}
+ 
+void loop(){}
