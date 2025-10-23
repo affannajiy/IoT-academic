@@ -1,0 +1,70 @@
+//Activity 4
+
+// Practical 04 - Mini Alarm System (Tinkercad-ready)
+// PIR + Buzzer + LEDs + Arm/Disarm + Silent Mode
+// Pins
+const int PIR     = 2;   // PIR OUT
+const int BUZ     = 9;   // Buzzer +
+const int LED_M   = 11;  // Motion LED
+const int LED_A   = 10;  // Armed LED
+const int BTN_ARM = 4;   // Arm/Disarm (to GND)
+const int BTN_SIL = 5;   // Silent Mode (to GND)
+
+// States
+bool armed = false;
+bool silentMode = false;
+
+// For simple debounce / edge detect
+int prevArm = HIGH;
+int prevSil = HIGH;
+unsigned long lastDebounceArm = 0;
+unsigned long lastDebounceSil = 0;
+void setup() {
+  pinMode(PIR, INPUT);
+  pinMode(BUZ, OUTPUT);
+  pinMode(LED_M, OUTPUT);
+  pinMode(LED_A, OUTPUT);
+  pinMode(BTN_ARM, INPUT_PULLUP);
+  pinMode(BTN_SIL, INPUT_PULLUP);
+  Serial.begin(9600);
+  Serial.println("Boot OK. System DISARMED. Silent=OFF");
+}
+ 
+void loop() {
+  // --- Toggle Arm --
+  int readArm = digitalRead(BTN_ARM);
+  if (readArm != prevArm && (millis() - lastDebounceArm) > 30) {
+    lastDebounceArm = millis();
+    if (readArm == LOW) {
+      armed = !armed;
+      Serial.println(armed ? "System ARMED" : "System DISARMED");
+    }
+    prevArm = readArm;
+  }
+  digitalWrite(LED_A, armed ? HIGH : LOW);
+  // --- Toggle Silent Mode --
+  int readSil = digitalRead(BTN_SIL);
+  if (readSil != prevSil && (millis() - lastDebounceSil) > 30) {
+    lastDebounceSil = millis();
+    if (readSil == LOW) {
+      silentMode = !silentMode;
+      Serial.println(silentMode ? "Silent Mode: ON" : "Silent Mode: OFF");
+    }
+    prevSil = readSil;
+  }
+  // --- Motion handling --
+  int motion = digitalRead(PIR);     // HIGH = motion
+  if (motion == HIGH) {
+    digitalWrite(LED_M, HIGH);
+    Serial.println("Motion Detected");
+    if (armed && !silentMode) {
+      tone(BUZ, 2000);
+    } else {
+      noTone(BUZ);
+    }
+  } else {
+    digitalWrite(LED_M, LOW);
+    noTone(BUZ);
+  }
+  delay(40); // gentle pacing
+}

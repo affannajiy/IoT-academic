@@ -1,0 +1,42 @@
+//Activity 3
+
+const int PIR   = 2;
+const int BUZ   = 9;
+const int LEDM  = 11;  // motion LED
+const int LEDA  = 10;  // armed LED
+const int BTN_ARM = 4;
+bool armed = false;
+int prevArm = HIGH;       // because INPUT_PULLUP -> idle HIGH
+unsigned long lastDebounce = 0;
+void setup() {
+  pinMode(PIR, INPUT);
+  pinMode(BUZ, OUTPUT);
+  pinMode(LEDM, OUTPUT);
+  pinMode(LEDA, OUTPUT);
+  pinMode(BTN_ARM, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // --- button toggle with simple debounce --
+  int readArm = digitalRead(BTN_ARM);
+  if (readArm != prevArm && (millis() - lastDebounce) > 30) {
+    lastDebounce = millis();
+    if (readArm == LOW) {         // pressed
+      armed = !armed;
+      Serial.println(armed ? "System ARMED" : "System DISARMED");
+    }
+    prevArm = readArm;
+  }
+  
+  digitalWrite(LEDA, armed ? HIGH : LOW);  // show armed status
+  // --- alarm logic --
+  int motion = digitalRead(PIR);
+  if (motion == HIGH) {
+    digitalWrite(LEDM, HIGH);
+    if (armed) tone(BUZ, 2000); else noTone(BUZ);
+  } else {
+    digitalWrite(LEDM, LOW);
+    noTone(BUZ);
+  }
+}

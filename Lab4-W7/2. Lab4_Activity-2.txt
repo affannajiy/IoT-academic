@@ -1,0 +1,22 @@
+//Activity 2
+
+const int PIR = 2;
+const int BUZ = 9;
+const int LEDM = 11;
+void setup() {
+  pinMode(PIR, INPUT);
+  pinMode(BUZ, OUTPUT);
+  pinMode(LEDM, OUTPUT);
+}
+ 
+void loop() {
+  int motion = digitalRead(PIR);
+  if (motion == HIGH) {
+    digitalWrite(LEDM, HIGH);
+    tone(BUZ, 2000);         // simple alarm tone
+  } else {
+    digitalWrite(LEDM, LOW);
+    noTone(BUZ);
+  }
+  delay(50);
+}

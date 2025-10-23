@@ -1,0 +1,17 @@
+//Activity 1 
+
+const int PIR = 2;
+void setup() {
+  pinMode(PIR, INPUT);
+  Serial.begin(9600);
+}
+ 
+void loop() {
+  int motion = digitalRead(PIR);  // HIGH = motion
+  if (motion == HIGH) {
+    Serial.println("Motion Detected");
+  } else {
+    Serial.println("No Motion");
+  }
+   delay(300);
+}
