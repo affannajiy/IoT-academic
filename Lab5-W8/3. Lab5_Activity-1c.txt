@@ -1,0 +1,18 @@
+//Activity 1C
+
+//Prints roughly every 50,000 microseconds using micros().
+const unsigned long PRINT_US = 50000; // 50 ms
+unsigned long lastUs = 0;
+void setup() {
+Serial.begin(9600);
+}
+
+void loop() {
+unsigned long nowUs = micros();
+ if ((unsigned long)(nowUs- lastUs) >= PRINT_US) {
+  lastUs = nowUs;
+  Serial.print("[micros demo] t(µs)=");
+  Serial.println(nowUs);
+ }
+ // do other quick work if needed
+}

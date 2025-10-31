@@ -1,0 +1,32 @@
+//Activity 2
+
+const int LED_PIN = 8;
+// or use LED_BUILTIN
+const unsigned long BLINK_INTERVAL = 1000; // ms
+unsigned long lastToggle = 0;
+bool ledState = false;
+void setup(){
+  Serial.begin(9600);pinMode(LED_PIN, OUTPUT);
+}
+ 
+void loop(){
+  unsigned long now = millis();
+  // 1) Non-blocking LED toggle
+  if (now- lastToggle >= BLINK_INTERVAL) {
+   lastToggle = now;
+   ledState = !ledState;
+   digitalWrite(LED_PIN, ledState ? HIGH : LOW);
+   Serial.print("[blink] toggled at t(ms)=");
+   Serial.println(now);
+  }
+  
+  // 2) Other work continues smoothly (e.g., sensor read)
+  int sensor = analogRead(A0); // Potentiometer → A0
+  // Print occasionally (every 200 ms) without blocking
+  static unsigned long lastSense = 0;
+  if (now- lastSense >= 200) {
+    lastSense = now;
+    Serial.print("A0=");
+    Serial.println(sensor);
+  }
+}

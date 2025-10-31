@@ -1,0 +1,18 @@
+//Activity 1A
+
+//Use LED
+//Prints timestamp once per second using delay() — blocks loop.
+void setup() {
+ Serial.begin(9600);
+ pinMode(LED_BUILTIN, OUTPUT); // you can watch the built-in LED too
+}
+ 
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(100);
+  digitalWrite(LED_BUILTIN, LOW);
+  unsigned long t = millis();
+  Serial.print("[delay demo] t(ms)=");
+  Serial.println(t);
+  delay(1000); // BLOCKING: nothing else happens here
+}

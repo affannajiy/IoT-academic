@@ -1,0 +1,25 @@
+//Activity 1B
+
+//Prints once per second using millis() — non-blocking.
+
+const unsigned long PRINT_INTERVAL = 1000; // ms
+unsigned long lastPrint = 0;
+
+// ms
+void setup() {
+ Serial.begin(9600);
+}
+
+void loop() {
+ unsigned long now = millis();
+ // non-blocking interval check
+ if (now- lastPrint >= PRINT_INTERVAL) {
+  lastPrint = now;
+  Serial.print("[millis demo] t(ms)=");
+  Serial.println(now);
+ }
+ 
+ // Other work can run freely here (no blocking):
+ int val = analogRead(A0); // if a pot is connected, twist it to see live values
+ (void)val; // suppress unused warning
+}

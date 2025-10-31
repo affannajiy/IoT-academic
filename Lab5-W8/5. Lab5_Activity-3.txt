@@ -1,0 +1,47 @@
+//Activity 3
+
+const int LED_PIN = 8;
+unsigned long blinkInterval = 1000;
+
+//or LED_BUILTIN
+//starts at 1000 ms
+const unsigned long MIN_INTERVAL = 200; // ms
+const unsigned long STEP_EVERY = 5000;
+
+//reduce interval every 5 s
+const unsigned long STEP_SIZE = 200;
+
+//reduce by 200 ms
+
+unsigned long lastToggle = 0; // for LED blink
+unsigned long lastStep = 0; // for speed change
+bool ledState = false;
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(LED_PIN, OUTPUT);
+}
+ 
+void loop(){
+  unsigned long now = millis();
+  
+  //Blink logic
+  if (now- lastToggle >= blinkInterval){
+    lastToggle = now;
+    ledState = !ledState;
+    digitalWrite(LED_PIN, ledState ? HIGH : LOW);
+  }
+  
+  //Interval reduction every 5 seconds
+  if (now- lastStep >= STEP_EVERY){
+    lastStep = now;
+    
+  if (blinkInterval > MIN_INTERVAL + STEP_SIZE) {
+    blinkInterval-= STEP_SIZE;
+  } else {
+    blinkInterval = 1000; // reset to start speed
+  } 
+  Serial.print("[speed] new interval(ms)=");
+  Serial.println(blinkInterval);
+  }
+}
