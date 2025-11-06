@@ -1,0 +1,18 @@
+//Task 1A
+//Potentiometer on A0 → % on Serial Monitor
+ 
+const int POT_PIN = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int raw = analogRead(POT_PIN);// 0..1023
+  float pct = (raw / 1023.0) * 100.0; // map to 0..100%
+  Serial.print("raw="); 
+  Serial.print(raw);
+  Serial.print("\tpercent="); 
+  Serial.println(pct);
+  delay(50);
+}

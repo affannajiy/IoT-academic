@@ -1,0 +1,16 @@
+//Activity 2
+//Potentiometer waveform for Serial Plotter
+
+const int POT_PIN = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int raw = analogRead(POT_PIN);
+  // Print ONE value per line for a single trace:
+  Serial.println(raw);
+  // For multiple traces, print like:Serial.print(val1); Serial.print("\t"); Serial.println(val2);
+  delay(20);
+}

@@ -1,0 +1,17 @@
+//Activity 4
+//LM35 on A2 → Celsius
+
+const int LM35_PIN = A2;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int raw = analogRead(LM35_PIN);
+  float voltage = raw * (5.0 / 1023.0); // Vout
+  float tempC = voltage * 100.0;
+  // 10 mV per °C
+  Serial.print("tempC="); Serial.println(tempC, 2);
+  delay(250);
+}

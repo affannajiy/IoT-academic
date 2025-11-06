@@ -1,0 +1,14 @@
+//Task 1B
+//Potentiometer on A0 → % on Serial Plotter
+ 
+const int POT_PIN = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int raw = analogRead(POT_PIN);
+  Serial.println(sensorValue);
+  delay(50);
+}

@@ -1,0 +1,14 @@
+//Activity 3
+//LDR on A1 with 10k divider → plot light level
+
+const int LDR_PIN = A1;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int raw = analogRead(LDR_PIN); // Higher raw typically = brighter (depends on wiring)
+  Serial.println(raw);
+  delay(50);
+}

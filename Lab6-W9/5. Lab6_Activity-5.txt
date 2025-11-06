@@ -1,0 +1,21 @@
+//Activity 5
+//Pot controls Servo angle (0..180°)
+
+#include <Servo.h>
+const int POT_PIN = A0;
+const int SERVO_PIN = 9;
+Servo myServo;
+
+void setup() {
+  Serial.begin(9600);
+  myServo.attach(SERVO_PIN);
+}
+
+void loop() {
+  int raw = analogRead(POT_PIN); // 0..1023
+  int angle = map(raw, 0, 1023, 0, 180); // map to degrees
+  myServo.write(angle);
+  Serial.print("raw="); Serial.print(raw);
+  Serial.print("\tangle="); Serial.println(angle);
+  delay(20);
+}
