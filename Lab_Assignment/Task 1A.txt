@@ -8,8 +8,8 @@ void setup() {
 }
 
 void loop() {
-  int raw = analogRead(POT_PIN);// 0..1023
-  float pct = (raw / 1023.0) * 100.0; // map to 0..100%
+  int raw = analogRead(POT_PIN); //0..1023
+  float pct = (raw / 1023.0) * 100.0; //map to 0..100%
   Serial.print("raw="); 
   Serial.print(raw);
   Serial.print("\tpercent="); 

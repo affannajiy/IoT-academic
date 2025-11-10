@@ -1,0 +1,36 @@
+//Task 3
+//Servo from Potentiometer with Rate-Limit/Deadband
+
+#include <Servo.h>
+
+const int POT_PIN = A0;
+const int SERVO_PIN = 9;
+Servo myServo;
+
+int lastAngle = 0;
+unsigned long lastMove = 0;
+const int DEAD_BAND = 10; //Ignore changes < 10
+const unsigned long MOVE_DELAY = 20; //Rate limit (ms)
+
+void setup() {
+  Serial.begin(9600);
+  myServo.attach(SERVO_PIN);
+}
+
+void loop() {
+  int raw = analogRead(POT_PIN); //0..1023
+  int targetAngle = map(raw, 0, 1023, 0, 180); //Map to 0-180°
+
+  // Deadband: Only move if change is significant
+  if (abs(targetAngle - lastAngle) > DEAD_BAND) {
+    if (millis() - lastMove >= MOVE_DELAY) {
+      lastMove = millis();
+      myServo.write(targetAngle);
+      lastAngle = targetAngle;
+      Serial.print("Angle=");
+      Serial.println(targetAngle);
+    }
+  }
+
+  delay(10); //Small delay
+}

@@ -1,0 +1,20 @@
+//Task 2
+//LDR Voltage Divider with Thresholds
+
+const int LDR_PIN = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int raw = analogRead(LDR_PIN); //0..1023
+  Serial.print("Light Level=");
+  Serial.print(raw);
+
+  if (raw > 700) Serial.println("Bright");
+  else if (raw > 300) Serial.println("Normal");
+  else Serial.println("Dark");
+
+  delay(100); //Updates
+}
