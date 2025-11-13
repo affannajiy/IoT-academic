@@ -1,0 +1,37 @@
+//Activity 2 (Arduino 2)
+#include <SoftwareSerial.h>
+
+SoftwareSerial link(10, 9); // RX, TX  (we use RX on D10)
+const int LED_PIN = 13;
+
+// onboard LED
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600); // to PC (Tinkercad Serial Monitor)
+  link.begin(9600);
+  // incoming from sensor
+  Serial.println("Gateway ready. Waiting for data (ts,tempC)...");
+}
+
+void loop() {
+  static String line = "";
+  while (link.available()) {
+    char c = link.read();
+    if (c == '\n') {
+      int comma = line.indexOf(',');
+      if (comma > 0) {
+        String ts = line.substring(0, comma);
+        float tempC = line.substring(comma + 1).toFloat();
+        // Pretty print + simple "log"
+        Serial.print("ts="); Serial.print(ts);
+        Serial.print(" ms, tempC="); Serial.println(tempC, 2);
+        // Threshold alert
+        digitalWrite(LED_PIN, tempC > 30.0 ? HIGH : LOW);
+      }
+      line = ""; // reset buffer
+    } else if (c != '\r') {
+      line += c;
+    }
+  }
+  delay(1000);
+}
