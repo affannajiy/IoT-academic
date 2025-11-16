@@ -1,0 +1,30 @@
+//Activity 3 (Arduino 1)
+#include <SoftwareSerial.h>
+ 
+SoftwareSerial link(7, 8); // RX, TX  (we use TX on D8)
+
+const int LM35_PIN = A0;
+float readTempC() {
+  int raw = analogRead(LM35_PIN);
+  float volts = ((raw * 5.0 / 1023.0) -0.5);
+  return volts * 100.0; // LM35: 10 mV/°C
+}
+ 
+void setup() {
+  Serial.begin(9600); // optional local debug
+  link.begin(9600);
+}
+
+void loop() {
+  float t = readTempC();
+  unsigned long ts = millis();
+  // link to gateway
+  // Send CSV line: timestamp_ms,tempC
+  link.print(ts);
+  link.print(",");
+  link.println(t, 2);
+  // Optional debug:
+  // Serial.print("Sent: "); Serial.print(ts); Serial.print(","); 
+  Serial.println(t, 2);
+  delay(1000);
+}
