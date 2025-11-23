@@ -1,0 +1,33 @@
+//Activity 3
+
+const int ledPins[3][3] = {
+ {2,3,4},
+ {5,6,7},
+ {8,9,10}
+};
+ 
+void setup() {
+ for(int r=0;r<3;r++){
+   for(int c=0;c<3;c++){
+     pinMode(ledPins[r][c], OUTPUT);
+   }
+ }
+}
+ 
+void showPattern(byte pattern[3][3]){
+ for(int r=0;r<3;r++){
+   for(int c=0;c<3;c++){
+     digitalWrite(ledPins[r][c], pattern[r][c] ? HIGH : LOW);
+   }
+ }
+}
+
+void loop(){
+  byte cross[3][3] = {
+    {1,0,1},
+    {0,1,0},
+    {1,0,1}
+  };
+  
+  showPattern(cross);
+}

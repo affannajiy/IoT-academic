@@ -1,0 +1,17 @@
+//Activity 2
+
+const int TEMP_PIN = A0;
+ 
+void setup() {
+ Serial.begin(9600);
+}
+
+void loop() {
+ int raw = analogRead(TEMP_PIN);
+ float voltage = raw * (5.0 / 1023.0);
+ float tempC = (voltage- 0.5) * 100.0;
+  
+ Serial.print("Temp (C): ");
+ Serial.println(tempC);
+ delay(1000);
+}

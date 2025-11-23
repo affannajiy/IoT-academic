@@ -1,0 +1,11 @@
+//Activity 1
+
+void setup() {
+ Serial.begin(9600);
+ Serial.println("Practical 08: TinkerCAD IoT Simulation Started");
+}
+ 
+void loop() {
+ Serial.println("Arduino is running...");
+ delay(1000);
+}

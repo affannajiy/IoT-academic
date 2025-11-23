@@ -1,0 +1,60 @@
+//Activity 4
+
+const int ledPins[3][3] = {
+  {2, 3, 4},   // Row 0
+  {5, 6, 7},   // Row 1
+  {8, 9, 10}   // Row 2
+};
+
+const int BTN_UP    = 11;
+const int BTN_DOWN  = 12;
+const int BTN_LEFT  = A1;
+const int BTN_RIGHT = A2;
+const int BTN_OK    = A3;   // belum guna lagi, untuk Activity 5 nanti
+
+int playerRow = 1;   // start kat tengah
+int playerCol = 1;         // start kat tengah
+
+void setup() {
+  // Set semua LED pins jadi OUTPUT
+  for(int r = 0; r < 3; r++) {
+    for(int c = 0; c < 3; c++) {
+      pinMode(ledPins[r][c], OUTPUT);
+    }
+  }
+
+  // Set button pins dengan internal pull-up
+  pinMode(BTN_UP,    INPUT_PULLUP);
+  pinMode(BTN_DOWN,  INPUT_PULLUP);
+  pinMode(BTN_LEFT,  INPUT_PULLUP);
+  pinMode(BTN_RIGHT, INPUT_PULLUP);
+  pinMode(BTN_OK,    INPUT_PULLUP);
+
+  // Nyalakan pixel tengah dulu
+  digitalWrite(ledPins[playerRow][playerCol], HIGH);
+}
+
+void clearAll() {
+  for(int r = 0; r < 3; r++) {
+    for(int c = 0; c < 3; c++) {
+      digitalWrite(ledPins[r][c], LOW);
+    }
+  }
+}
+
+void drawPlayer() {
+  clearAll();
+  digitalWrite(ledPins[playerRow][playerCol], HIGH);
+}
+
+void loop() {
+  // Baca button dan gerak (hanya gerak kalau tak keluar grid)
+  if (digitalRead(BTN_UP)    == LOW && playerRow > 0) playerRow--;
+  if (digitalRead(BTN_DOWN)  == LOW && playerRow < 2) playerRow++;
+  if (digitalRead(BTN_LEFT)  == LOW && playerCol > 0) playerCol--;
+  if (digitalRead(BTN_RIGHT) == LOW && playerCol < 2) playerCol++;
+
+  drawPlayer();
+  
+  delay(150);    // ni penting! debounce + buat gerak tak terlalu laju
+}
